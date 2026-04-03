@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  
+  --color-lumiere-dark: #4B2E2B;
+  --color-lumiere-tan: #C08552;
+  --color-lumiere-brown: #8C5A3C;
+  --color-lumiere-cream: #FFF8F0;
+}
+
+@utility bg-grid {
+  background-image: radial-gradient(circle, #8C5A3C 0.5px, transparent 0.5px);
+  background-size: 40px 40px;
+}
+
+/* Hero animated background */
+.hero-bg-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent 0%, #FFF8F0 100%);
+  z-index: 2;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+/* Orb 1 — Large warm gold */
+.hero-orb-1 {
+  width: 500px;
+  height: 500px;
+  top: -15%;
+  left: -5%;
+  background: radial-gradient(circle, rgba(192,133,82,0.5) 0%, rgba(192,133,82,0) 70%);
+  animation: heroFloat1 12s ease-in-out infinite;
+}
+
+/* Orb 2 — Amber from right */
+.hero-orb-2 {
+  width: 450px;
+  height: 450px;
+  top: 10%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(212,163,115,0.45) 0%, rgba(212,163,115,0) 70%);
+  animation: heroFloat2 14s ease-in-out infinite;
+}
+
+/* Orb 3 — Deep brown, bottom */
+.hero-orb-3 {
+  width: 550px;
+  height: 550px;
+  bottom: -20%;
+  left: 15%;
+  background: radial-gradient(circle, rgba(140,90,60,0.35) 0%, rgba(140,90,60,0) 70%);
+  animation: heroFloat3 10s ease-in-out infinite;
+}
+
+/* Orb 4 — Warm cream, right-center */
+.hero-orb-4 {
+  width: 400px;
+  height: 400px;
+  top: 30%;
+  right: 20%;
+  background: radial-gradient(circle, rgba(255,230,200,0.4) 0%, rgba(255,230,200,0) 70%);
+  animation: heroFloat4 16s ease-in-out infinite;
+}
+
+/* Orb 5 — Small golden accent */
+.hero-orb-5 {
+  width: 300px;
+  height: 300px;
+  top: 5%;
+  left: 35%;
+  background: radial-gradient(circle, rgba(192,133,82,0.35) 0%, rgba(192,133,82,0) 70%);
+  animation: heroFloat5 11s ease-in-out infinite;
+}
+
+@keyframes heroFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20vw, 15vh) scale(1.15); }
+  50% { transform: translate(10vw, 30vh) scale(0.9); }
+  75% { transform: translate(-5vw, 15vh) scale(1.1); }
+}
+
+@keyframes heroFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-15vw, 10vh) scale(0.9); }
+  50% { transform: translate(-25vw, -5vh) scale(1.15); }
+  75% { transform: translate(-10vw, -15vh) scale(0.95); }
+}
+
+@keyframes heroFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(15vw, -15vh) scale(1.1); }
+  50% { transform: translate(25vw, -5vh) scale(0.85); }
+  75% { transform: translate(8vw, 10vh) scale(1.05); }
+}
+
+@keyframes heroFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-12vw, -10vh) scale(1.2); }
+  66% { transform: translate(8vw, 15vh) scale(0.85); }
+}
+
+@keyframes heroFloat5 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(15vw, 10vh) scale(1.15); }
+  60% { transform: translate(-10vw, 20vh) scale(0.88); }
+}
+
+/* Responsive orbs for mobile */
+@media (max-width: 768px) {
+  .hero-orb-1 { width: 280px; height: 280px; }
+  .hero-orb-2 { width: 250px; height: 250px; }
+  .hero-orb-3 { width: 300px; height: 300px; }
+  .hero-orb-4 { width: 220px; height: 220px; }
+  .hero-orb-5 { width: 180px; height: 180px; }
+}
+
