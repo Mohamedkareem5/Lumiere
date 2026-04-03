@@ -5,28 +5,39 @@ export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
     
-    // Format the text for WhatsApp (uses %0A for new lines)
-    const text = `*New Inquiry from Lumiere Website*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}`;
-    
-    // TODO: Put your actual WhatsApp number here 
-    // Include country code, no + or spaces (e.g. 12345678900 for US, 447123456789 for UK)
-    const phoneNumber = "201110956401"; 
-    
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
-    
-    // Open WhatsApp in a new tab
-    window.open(whatsappUrl, '_blank');
-    
-    // Show a success message briefly, then reset
-    setStatus('success');
-    setTimeout(() => {
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // TODO: Replace this with your Web3Forms access key
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.status === 200) {
+        setStatus('success');
+        setTimeout(() => {
+          setStatus('idle');
+          setFormData({ name: '', email: '', message: '' });
+        }, 5000);
+      } else {
+        console.error("Submission failed");
+        setStatus('idle');
+      }
+    } catch (error) {
+      console.error(error);
       setStatus('idle');
-      setFormData({ name: '', email: '', message: '' });
-    }, 4000);
+    }
   };
 
   return (
@@ -44,9 +55,17 @@ export default function Contact() {
           className="bg-lumiere-cream p-10 rounded-3xl border border-lumiere-dark/10"
         >
           {status === 'success' ? (
-            <div className="h-full flex flex-col items-center justify-center text-center py-8">
-              <h3 className="font-serif text-3xl text-lumiere-dark mb-4">Opening WhatsApp...</h3>
-              <p className="font-sans text-lumiere-dark/70">Please hit "Send" in WhatsApp to complete your message.</p>
+            <div className="h-full flex flex-col items-center justify-center text-center py-8 gap-4">
+              <div>
+                <h3 className="font-serif text-3xl text-lumiere-dark mb-2">Message Sent!</h3>
+                <p className="font-sans text-lumiere-dark/70">We will reply to your email shortly.</p>
+              </div>
+              <div className="w-16 h-[1px] bg-lumiere-dark/20 my-2"></div>
+              <style>{`.rtl-text { font-family: 'Tajawal', 'Cairo', sans-serif; }`}</style>
+              <div dir="rtl" className="rtl-text">
+                <h3 className="text-3xl text-lumiere-dark mb-2 font-bold">تم إرسال رسالتك بـنجاح!</h3>
+                <p className="text-lumiere-dark/70 text-lg">شكراً لتواصلك معنا. سنقوم بالرد في أقرب وقت.</p>
+              </div>
             </div>
           ) : (
             <div className="space-y-6">
@@ -88,7 +107,7 @@ export default function Contact() {
                 disabled={status === 'submitting'}
                 className="w-full py-4 bg-lumiere-dark text-lumiere-cream font-semibold rounded-full hover:bg-lumiere-tan transition-all duration-300 disabled:opacity-50"
               >
-                {status === 'submitting' ? 'Connecting...' : 'Message on WhatsApp'}
+                {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </button>
             </div>
           )}
