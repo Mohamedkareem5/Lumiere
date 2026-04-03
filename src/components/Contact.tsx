@@ -20,9 +20,11 @@ export default function Contact() {
         },
         body: JSON.stringify({
           access_key: "73614cea-0f5f-409f-ad4a-3bee97f07112", 
-          name: formData.name,
-          phone: formData.phone,
-          message: formData.message,
+          subject: "🚀 New Client Lead - Lumiere Agency",
+          from_name: "Lumiere Website",
+          "Client Name": formData.name,
+          "WhatsApp Number": formData.phone,
+          "Project Details": formData.message,
         }),
       });
 
