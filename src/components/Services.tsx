@@ -63,37 +63,50 @@ export default function Services() {
 
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-lumiere-dark/10 -translate-x-1/2">
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-lumiere-dark/10 -translate-x-1/2">
             <motion.div
               style={{scaleY: lineScale, originY: 0}}
               className="w-full h-full bg-lumiere-tan"
             />
           </div>
 
-          <div className="space-y-24">
+          <div className="space-y-16 md:space-y-24">
             {services.map((service, index) => (
-              <div key={service.id} className={`relative flex items-center justify-center ${index % 2 === 0 ? 'flex-row-reverse' : 'flex-row'}`}>
+              <div key={service.id} className={`relative flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                
+                {/* Mobile Icon Node */}
+                <div className="md:hidden z-20">
+                  <motion.div
+                    initial={{scale: 0}}
+                    whileInView={{scale: 1}}
+                    viewport={{once: true}}
+                    className="w-12 h-12 rounded-full bg-lumiere-cream border-2 border-lumiere-tan flex items-center justify-center shadow-lg"
+                  >
+                    <service.icon className="w-5 h-5 text-lumiere-tan" />
+                  </motion.div>
+                </div>
+
                 {/* Content Card */}
                 <motion.div
                   initial={{opacity: 0, y: 50}}
                   whileInView={{opacity: 1, y: 0}}
                   viewport={{once: true, margin: "-100px"}}
-                  className="w-5/12 p-8 bg-white/50 backdrop-blur-md border border-lumiere-dark/10 rounded-2xl shadow-sm"
+                  className="w-full md:w-5/12 p-6 md:p-8 bg-white/50 backdrop-blur-md border border-lumiere-dark/10 rounded-2xl shadow-sm z-10"
                 >
                   <h3 className="font-serif text-2xl text-lumiere-dark mb-3">{service.title}</h3>
                   <p className="font-sans text-lumiere-dark/70 text-sm leading-relaxed mb-4">{service.description}</p>
                   <ul className="space-y-2">
                     {service.details.map((detail, i) => (
                       <li key={i} className="flex items-center text-xs text-lumiere-brown font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-lumiere-tan mr-2" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-lumiere-tan mr-2 shrink-0" />
                         {detail}
                       </li>
                     ))}
                   </ul>
                 </motion.div>
 
-                {/* Icon Node */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                {/* Desktop Icon Node */}
+                <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                   <motion.div
                     initial={{scale: 0}}
                     whileInView={{scale: 1}}
@@ -105,7 +118,7 @@ export default function Services() {
                 </div>
                 
                 {/* Spacer */}
-                <div className="w-5/12" />
+                <div className="hidden md:block w-5/12" />
               </div>
             ))}
           </div>

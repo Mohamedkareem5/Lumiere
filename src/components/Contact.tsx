@@ -46,18 +46,18 @@ export default function Contact() {
   };
 
   return (
-    <section className="py-32 bg-white">
-      <div id="contact" className="relative max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 scroll-mt-20">
+    <section className="py-24 md:py-32 bg-white overflow-hidden">
+      <div id="contact" className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 scroll-mt-20">
         <div>
-          <h2 className="font-serif text-5xl text-lumiere-dark mb-6">Start Your Project</h2>
-          <p className="font-sans text-lg text-lumiere-dark/70 mb-12">
+          <h2 className="font-serif text-4xl md:text-5xl text-lumiere-dark mb-6">Start Your Project</h2>
+          <p className="font-sans text-base md:text-lg text-lumiere-dark/70 mb-8 md:mb-12">
             Ready to bring your vision to life? Reach out today and let's build something great together.
           </p>
         </div>
 
         <motion.form
           onSubmit={handleSubmit}
-          className="bg-lumiere-cream p-10 rounded-3xl border border-lumiere-dark/10"
+          className="bg-lumiere-cream p-6 md:p-10 rounded-3xl border border-lumiere-dark/10 w-full"
         >
           {status === 'success' ? (
             <div className="h-full flex flex-col items-center justify-center text-center py-8 gap-4">
