@@ -12,6 +12,7 @@ export default function Contact() {
     setStatus('submitting');
     
     try {
+      // 1. Send the email to Web3Forms
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
